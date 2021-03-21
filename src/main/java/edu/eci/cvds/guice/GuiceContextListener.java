@@ -13,6 +13,7 @@ import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import edu.eci.cvds.samples.services.impl.ServiciosAlquilerItemsStub;
 
 public class GuiceContextListener implements ServletContextListener {
 
