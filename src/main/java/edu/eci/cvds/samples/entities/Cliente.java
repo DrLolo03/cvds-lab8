@@ -105,7 +105,9 @@ public class Cliente implements Serializable{
         return "Cliente{" + "nombre=" + nombre + ", documento=" + documento + ", rentados=\n\t" + rentados + '}';
     }
 
-   
+   public String getItemRentados(){
+        return "rentados={\n\t" + rentados + '}';
+    }
     
     
 }

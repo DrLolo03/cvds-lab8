@@ -34,7 +34,7 @@ public class JDBCExample {
     
     public static void main(String args[]){
         try {
-             String url= "jdbc:mysql://desarrollo.is.escuelaing.edu.co:3306/bdprueba";
+             String url= "jdbc:mysql://desarrollo.is.escuelaing.edu.co:3306/bdprueba?useSSL=false";
             String driver="com.mysql.jdbc.Driver";
             String user="bdprueba";
             String pwd="prueba2019";

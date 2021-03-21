@@ -33,6 +33,8 @@ import edu.eci.cvds.samples.entities.TipoItem;
 import edu.eci.cvds.samples.entities.Item;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper;
+import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemRentadoMapper;
+import edu.eci.cvds.sampleprj.dao.mybatis.mappers.TipoItemMapper;
 
 
 /**
@@ -71,7 +73,7 @@ public class MyBatisExample {
 
         SqlSession sqlss = sessionfact.openSession();
 
-        
+        /** 
         //Crear el mapper y usarlo: 
         ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
         //cm...
@@ -92,14 +94,57 @@ public class MyBatisExample {
         System.out.println("Buscando el item de id 1022367709,");
         System.out.println(itm.consultarItem(1022367709));
         System.out.println("añadir item id 0987");
-        /**
-        Item(TipoItem tipo, int id, String nombre, String descripcion, Date fechaLanzamiento, long tarifaxDia, String formatoRenta, String genero)
-         */
+        
+        //Item(TipoItem tipo, int id, String nombre, String descripcion, Date fechaLanzamiento, long tarifaxDia, String formatoRenta, String genero)
+        
          //al momenot de susstentar hay que cambiar el numero 9877778 porque va a aparecer como llave duplicada
         itm.insertarItem( new Item( new TipoItem(2,"Accion"),9877778,"Como dijo Vladimir, wa mirmir","descripcion",Date.valueOf("2021-03-14"),2313,"renta","accion" ));
         
         System.out.println("Consultando item");
         System.out.println(itm.consultarItem(9877778));
+        **/
+        ///////mappers ahora
+        //***************************************************************************** Probando MapperCLiente
+        ClienteMapper cm =sqlss.getMapper(ClienteMapper.class);
+        System.out.println("---------------------");
+        System.out.println(cm.consultarClientes());
+        System.out.println("---------------------");
+        System.out.println(cm.consultarCliente(321817).getNombre());
+        //cm.agregarItemRentadoACliente(-700,4,Date.valueOf("2021-09-25"),Date.valueOf("2021-09-26"));
+        //cm.agregarCliente( new Cliente("NicolasT",3146879,"8527415963", "direccion","email2",true, new ArrayList<ItemRentado>()  ));
+        System.out.println("---------------------");
+        //System.out.println(cm.consultarCliente(3146879));
+         System.out.println("----------------------");
+         System.out.println(cm.consultarClientesVetados());
+         System.out.println("----------------------");
+
+        // Item Rentado
+        ItemRentadoMapper irm = sqlss.getMapper(ItemRentadoMapper.class);
+        System.out.println("--------------------- consultarItemsRentados-");
+        
+        System.out.println(irm.consultarItemsRentados(1478521)); // items rentados por el cliente 1478521
+        //System.out.println(irm.consultarItemsRentados(1478521)); // items rentados por el cliente 1478521
+        System.out.println("----------------------");
+        System.out.println(irm.consultarItemRentados());
+        System.out.println("----------------------");
+
+        //  ItemMapper
+        ItemMapper im = sqlss.getMapper(ItemMapper.class);
+        System.out.println("----------------------");
+        System.out.println( im.consultarItems());
+        System.out.println("----------------------");
+        im.insertarItem( new Item( new TipoItem(2,"Accion"),9877778,"Como dijo Vladimir, wa mirmir","descripcion",Date.valueOf("2021-03-14"),2313,"renta","accion" ));
+        System.out.println("Consultando item");
+        System.out.println(im.consultarItem(9877778));
+        
+
+        // Probando Tipo Item
+        System.out.println("----------------------");
+        TipoItemMapper tim = sqlss.getMapper(TipoItemMapper.class);
+        System.out.println(tim.getTiposItems());
+        //tim.agregarTipoItem(new TipoItem(5,"pretselz"));
+        System.out.println("----------------------");
+        System.out.println( tim.getTipoItem(1));
         
         sqlss.commit();
         
