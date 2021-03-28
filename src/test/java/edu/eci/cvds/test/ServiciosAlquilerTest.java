@@ -33,7 +33,6 @@ public class ServiciosAlquilerTest {
 
 
     public ServiciosAlquilerTest() {
-        System.out.println("probando base de datos1");
         serviciosAlquiler = ServiciosAlquilerFactory.getInstance().getServiciosAlquilerTesting();
     }
 
@@ -43,28 +42,27 @@ public class ServiciosAlquilerTest {
 
 
     @Test
-    public void emptyDB() {
-        System.out.println("probando base de datos2");
-        for(int i = 1; i < 100; i += 10) {
-            boolean r = false;
-            try {
-                Cliente cliente = serviciosAlquiler.consultarCliente(321817);
-            } catch(ServiciosAlquilerException e) {
-                r = true;
-            } catch(IndexOutOfBoundsException e) {
-                r = true;
-            }
-            // Validate no Client was found;
-            Assert.assertTrue(r);
-        };
+    public void emptyDB() {    
+        boolean r = false;
+        try {
+            Cliente cliente = serviciosAlquiler.consultarCliente(1010);
+            r=true;
+        } catch(ServiciosAlquilerException e) {
+            r = false;
+        } catch(IndexOutOfBoundsException e) {
+            r = false;
+        }
+        // Validate no Client was found;
+        Assert.assertFalse(r);
     }
+    
 
 
     @Test
     public void consultandoUnCliente() throws ServiciosAlquilerException {
         try {
             Cliente cliente = serviciosAlquiler.consultarCliente(321817);
-            Assert.assertEquals("asd",cliente.getNombre());
+            Assert.assertEquals("Rigoberto Uran",cliente.getNombre());
         } catch(ServiciosAlquilerException e) {
             throw new ServiciosAlquilerException("Error Prueba Consultar Cliente.",e);
         }
@@ -75,12 +73,13 @@ public class ServiciosAlquilerTest {
         boolean found = false;
         try{
             Item item = serviciosAlquiler.consultarItem(1022367709);
+            found=true;
         }
         catch (ServiciosAlquilerException e){
-            found = true;
+            found = false;
         }
         catch (IndexOutOfBoundsException e){
-            found = true;
+            found = false;
         }
         finally{
             Assert.assertTrue(found);
@@ -103,20 +102,27 @@ public class ServiciosAlquilerTest {
     }
 
     @Test
+    /*
+    error(?)
+    */
     public void consultarMultaAlquilerValido() throws ServiciosAlquilerException {
+        System.out.println("1");
         int diasRetraso = 5;
         idItem = 4;
         Date fechaFinRentaItem = serviciosAlquiler.consultarItemsRentados(idItem).getFechafinrenta();
-
+        System.out.println(fechaFinRentaItem);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime( fechaFinRentaItem );
         calendar.add( Calendar.DAY_OF_YEAR,diasRetraso);
-
         java.sql.Date entrega = new java.sql.Date(calendar.getTime().getTime());
+
         Assert.assertEquals( serviciosAlquiler.consultarMultaAlquiler(idItem,entrega ),serviciosAlquiler.valorMultaRetrasoxDia(idItem) * diasRetraso );
     }
 
     @Test
+    /*
+    error(?)
+    */
     public void consultarMultaAlquilerValidoIgualaCero() throws ServiciosAlquilerException {
         int diasRetraso = 0;
         idItem = 4;
@@ -129,6 +135,7 @@ public class ServiciosAlquilerTest {
         java.sql.Date entrega = new java.sql.Date(calendar.getTime().getTime());
         Assert.assertEquals( serviciosAlquiler.consultarMultaAlquiler(idItem,entrega ),0 );
     }
+
     @Test
     public void consultarMultaAlquilerValidoExcepcionItem() {
         int diasRetraso = 0;
@@ -147,7 +154,11 @@ public class ServiciosAlquilerTest {
         }
     }
     @Test
+    /*
+    comparacion erronea
+    */
     public void consultarMultaAlquilerValidoExcepcionItemNoRentado() {
+        
         int diasRetraso = 0;
         idItem = 1001169369;
         try {
@@ -162,9 +173,14 @@ public class ServiciosAlquilerTest {
         } catch (ServiciosAlquilerException excepcionServiciosAlquiler) {
             Assert.assertEquals( excepcionServiciosAlquiler.getMessage(), ServiciosAlquilerException.NO__ALQUILERITEM+idItem);
         }
+        
+
     }
 
     @Test
+    /*
+    comparacion erronea
+    */
     public void consultarMultaAlquilerValidoExcepcionFechaIncorrecta() {
         int diasRetraso = -1000;
         idItem = 4;
@@ -222,9 +238,12 @@ public class ServiciosAlquilerTest {
 
 
     @Test
+    /*
+    error
+    */
     public void actualizarTarifaItemValido() throws ServiciosAlquilerException {
-        tarifa = 30000;
-        idItem = 2;
+        tarifa = 16;
+        idItem = 1;
 
         long currentTarifa;
         serviciosAlquiler.actualizarTarifaItem( idItem, tarifa);

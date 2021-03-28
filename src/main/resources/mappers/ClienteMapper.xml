@@ -5,7 +5,7 @@
   
 <mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper">
 <select parameterType="map" id="consultarClientes" resultMap="ClienteResult">
-    SELECT
+  SELECT
       c.nombre AS c_nombre,
       c.documento AS c_documento,
       c.telefono AS c_telefono,
@@ -31,9 +31,10 @@
       LEFT JOIN VI_ITEMRENTADO AS ir ON c.documento=ir.CLIENTES_documento
       LEFT JOIN VI_ITEMS AS i ON ir.ITEMS_id=i.id
       LEFT JOIN VI_TIPOITEM AS ti ON i.TIPOITEM_id=ti.id
-  </select>
-  <select id="consultarCliente" parameterType="map" resultMap="ClienteResult">
-        SELECT
+</select>
+
+<select id="consultarCliente" parameterType="map" resultMap="ClienteResult">
+  SELECT
                 c.nombre AS c_nombre,
                 c.documento AS c_documento,
                 c.telefono AS c_telefono,
@@ -60,11 +61,13 @@
                 LEFT JOIN VI_ITEMS AS i ON ir.ITEMS_id=i.id
                 LEFT JOIN VI_TIPOITEM AS ti ON i.TIPOITEM_id=ti.id
                 WHERE #{idcli} =  c.documento ;
-    </select>
-    <insert id="agregarItemRentadoACliente" parameterType="map" >
-        INSERT INTO VI_ITEMRENTADO (CLIENTES_documento,ITEMS_id,fechainiciorenta,fechafinrenta)
-         VALUES(#{idcli},#{idit},#{fechainicio},#{fechafin});
-    </insert>
+</select>
+
+<insert id="agregarItemRentadoACliente" parameterType="map" >
+  INSERT INTO VI_ITEMRENTADO (CLIENTES_documento,ITEMS_id,fechainiciorenta,fechafinrenta)
+  VALUES(#{idcli},#{idit},#{fechainicio},#{fechafin});
+</insert>
+
    <resultMap id="ClienteResult" type="Cliente" >
         <id property="documento" column="c_documento"/>
         <result property="nombre" column="c_nombre" />
@@ -73,5 +76,6 @@
         <result property="email" column="c_email" />
         <result property="vetado" column="c_vetado" />
         <collection property="rentados" ofType="ItemRentado" resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemRentadoMapper.ItemRentadoResult" ></collection>
-    </resultMap>      	
+    </resultMap>  
+
 </mapper>
