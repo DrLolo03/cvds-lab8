@@ -10,8 +10,8 @@
 </h:head>
 <h:body>
 	<div class="scrollbars">
-		<h:form id="registros" class="formaCliente" >
-			<h1 style="color: white"> Registrar Cliente</h1>
+		<h:form id="registros" class="formaCliente" style="color: rgb(160, 14, 14)">
+			<h1 style="color: rgb(197, 17, 17)"> Registrar Cliente</h1>
 			<p:inputText id="nombre" styleClass="input-text" type="String" required="true" placeholder="nombre" binding="#{nombre}" />
 			<p:inputText id="documento" styleClass="input-text" type="long" required="true" placeholder="documento" binding="#{documento}" />
 			<p:inputText id="telefono" styleClass="input-text" type="String" required="true" placeholder="telefono" binding="#{telefono}"/>
@@ -21,7 +21,7 @@
 							 actionListener="#{alquiler.registrarCliente(nombre.value, documento.value,telefono.value,direccion.value,email.value )}"/>
 		</h:form>
 		<h:form id="muestras" class="formaCliente">
-			<h1 style="color: white"> Informacion Clientes</h1>
+			<h1 style="color: rgb(131, 122, 122)"> Informacion Clientes</h1>
 			<p:dataTable id="MuestraCliente" value="#{alquiler.clientes}" var="cliente" selection="#{alquiler.selectedCliente}"
 						 rowKey="#{cliente.documento}"
 						 rows="10"
@@ -30,7 +30,7 @@
 						 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
 						 rowsPerPageTemplate="1,5,10,15">
 				<f:facet name="header">
-					Clientes actuales
+					Clientes Registrados
 				</f:facet>
 				<p:column selectionMode="single" style="width:16px;text-align:center"/>
 				<p:column headerText="Documento"  >
@@ -75,4 +75,4 @@
 
 
 </h:body>
-</html><!-- Autores: Ivan camilo Rincon y Leonargo Galeano, referencia : https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css, https://datatables.net/--> 
+</html> 

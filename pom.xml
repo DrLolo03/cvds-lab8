@@ -7,6 +7,7 @@
     <groupId>samples_mybatis-guice</groupId>
     <artifactId>MyBATIS-Guice-DAO-VideorentalServicesLayer</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
@@ -26,41 +27,35 @@
             <artifactId>mybatis</artifactId>
             <version>3.4.5</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>4.0</version>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.44</version>
         </dependency>
         <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-            <version>4.2.3</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.191</version>
         </dependency>
+
         <dependency>
             <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>7.0</version>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0</version>
             <scope>provided</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.sun.faces/jsf-api -->
+
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
             <version>2.2.20</version>
         </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.191</version>
-        </dependency>
-         <!-- https://mvnrepository.com/artifact/com.sun.faces/jsf-impl -->
+
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
@@ -68,13 +63,25 @@
         </dependency>
 
         <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>5.2</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>7.0</version>
+        </dependency>
     </dependencies>
-    
+
     <build>
         <plugins>
             <!-- clean project (also local H2 database)-->
@@ -91,7 +98,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
             <!-- create local H2 database -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -100,12 +107,12 @@
                 <dependencies>
                     <dependency>
                         <groupId>com.h2database</groupId>
-                        <artifactId>h2</artifactId> 
+                        <artifactId>h2</artifactId>
                         <version>1.4.184</version>
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <driver>org.h2.Driver</driver>                    
+                    <driver>org.h2.Driver</driver>
                     <url>jdbc:h2:file:./target/db/testdb;MODE=MYSQL</url>
                     <username>sa</username>
                     <password></password>
@@ -120,8 +127,8 @@
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <srcFiles>                                
-                                <srcFile>tables.sql</srcFile>                                
+                            <srcFiles>
+                                <srcFile>tables.sql</srcFile>
                             </srcFiles>
                         </configuration>
                     </execution>
@@ -169,7 +176,8 @@
 
                 </executions>
             </plugin>
-              <!-- Tomcat embedded plugin. -->
+
+            <!-- Tomcat embedded plugin. -->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
@@ -179,16 +187,14 @@
                     <path>/</path>
                 </configuration>
             </plugin>
-            <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.19.1</version>
-                </plugin>
+
+
+
         </plugins>
     </build>
-        
-    
-    
+
+
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:P="http://java.sun.com/jsf/html">
+<h:head>
+    <title>Registrar items</title>
+    <link rel="stylesheet" />
+</h:head>
+
+<h:body>
+    <div>
+        <p:commandButton id="volverCliente" styleClass="MyButton" value="Volver a clientes" action="#{navigationController.paginaCliente}"/>
+    </div>
+
+    <div class="scrollbars">
+        <h:form id="registrosItems" class="formaCliente" >
+            <h1 style="color: rgb(255, 0, 0)"> Registrar Un Nuevo Alquiler Para el cliente:  #{alquiler.selectedCliente.nombre}</h1>
+            <p:inputText id="idItem" styleClass="input-text" type="int" required="true" placeholder="Id del Item" binding="#{idItem}" />
+            <p:inputText id="numDias" styleClass="input-text" type="int" required="true" placeholder="Numero de dias" binding="#{numDias}" />
+            <p:outputLabel style="color: rgb(250, 4, 4)" value="Costo del alquiler: #{alquiler.costo}"/>
+            <table align="center">
+                <tr>
+                    <td>
+                        <p:commandButton value="Registrar" update="ItemNoDevultosForm" class="MyButton"
+                                         actionListener="#{alquiler.registrarItemRentado(idItem.value,numDias.value)}">
+                            <p:ajax render="infoItemNoDevueltos"/>
+                        </p:commandButton>
+                    </td>
+                    <td>
+                        <p:commandButton value="Consultar" class="MyButton" update="registrosItems"
+                                         actionListener="#{alquiler.consultarCosto( idItem.value,numDias.value)}"/>
+
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+        <h:form id="ItemNoDevultosForm" class="formaCliente">
+            <h1 style="color: rgb(238, 15, 15)"> Items Alquilados Activos </h1>
+
+            <p:dataTable id="infoItemNoDevueltos" value="#{alquiler.itemsNoDevueltos}"
+                         var="itemrentado"
+                         rowKey="#{itemrentado.id}"
+                         rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         rowsPerPageTemplate="1,5,10,15">
+                <f:facet name="header">
+                    Items No Devueltos del Usuario: #{alquiler.selectedCliente.nombre}
+                </f:facet>
+                <p:column headerText="Id Renta">
+                    <P:outputLabel value="#{itemrentado.id}"/>
+                </p:column>
+                <p:column headerText="Item ID">
+                    <P:outputLabel value="#{itemrentado.item.id}"/>
+                </p:column>
+                <p:column headerText="Fecha Inicio Renta">
+                    <P:outputLabel value="#{itemrentado.fechainiciorenta}"/>
+                </p:column>
+                <p:column headerText="Fecha Fin Renta">
+                    <P:outputLabel value="#{itemrentado.fechafinrenta}"/>
+                </p:column>
+                <p:column headerText="Tarifa Por dia">
+                    <P:outputLabel value="#{itemrentado.item.tarifaxDia}"/>
+                </p:column>
+            </p:dataTable>
+            <table align="center">
+                <tr>
+                    <td>
+                        <p:commandButton id="consultar" value="Consultar" update="infoItemNoDevueltos" class="MyButton"
+                                         actionListener="#{alquiler.consultarItemsNoRentados}">
+                            <p:ajax render="infoItemNoDevueltos"/>
+                        </p:commandButton>
+                    </td>
+                    <td>
+                        <p:commandButton id="borrar" value="Borrar" update="infoItemNoDevueltos" class="MyButton"
+                                         actionListener="#{alquiler.resetItems}">
+                            <p:ajax render="infoItemNoDevueltos"/>
+                        </p:commandButton>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+
+
+    </div>
+
+    <div class="underlay-photo"></div>
+    <div class="underlay-black"></div>
+</h:body>
+</html>
