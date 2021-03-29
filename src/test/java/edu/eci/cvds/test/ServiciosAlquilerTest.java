@@ -11,7 +11,6 @@ import edu.eci.cvds.samples.services.ServiciosAlquilerException;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquilerFactory;
 import org.apache.ibatis.session.SqlSession;
-import org.checkerframework.dataflow.qual.TerminatesExecution;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
