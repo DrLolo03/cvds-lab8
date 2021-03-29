@@ -1,3 +1,5 @@
+[![novenix](https://circleci.com/gh/DrLolo03/cvds-lab8/tree/master.svg?style=svg)](https://circleci.com/gh/DrLolo03/cvds-lab8/tree/master)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/196318a150f1484cb3ea8b34f9e8f527)](https://www.codacy.com/gh/DrLolo03/cvds-lab8/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DrLolo03/cvds-lab8&amp;utm_campaign=Badge_Grade)
 ### Escuela Colombiana de Ingeniería
 parte mybatis example
 mvn exec:java -Dexec.mainClass="edu.eci.cvds.samples.services.client.MyBatisExample"
